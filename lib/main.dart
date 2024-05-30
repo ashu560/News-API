@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:boilerplate/Navigation%20Bar/navbar.dart';
+import 'package:boilerplate/screens/Home.dart';
+import 'package:boilerplate/screens/settings.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -20,7 +22,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: NavBar(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => NavBar(),
+        '/second': (context) => second(),
+      },
     );
   }
 }
