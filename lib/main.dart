@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:boilerplate/Navigation%20Bar/navbar.dart';
-import 'package:boilerplate/screens/ArticleDetailedPage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
