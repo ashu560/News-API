@@ -1,6 +1,5 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'dart:convert';
+import 'package:boilerplate/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,8 +11,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late List<Map<String, dynamic>> newsList = [];
-  late bool isLoading = false;
+  List<Map<String, dynamic>> newsList = [];
+  bool isLoading = false;
 
   Future<void> apicall() async {
     setState(() {
@@ -96,87 +95,14 @@ class _HomePageState extends State<HomePage> {
                     ? Center(
                         child: const CircularProgressIndicator(),
                       )
-                    : ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: newsList.length,
-                        itemBuilder: (context, index) {
-                          final newsItem = newsList[index];
-                          final articleImg = newsItem['urlToImage'] ?? '';
-                          return InkWell(
-                            onTap: () {},
-                            child: Column(
-                              children: [
-                                Container(
-                                  height: 350,
-                                  width: 350,
-                                  padding: const EdgeInsets.all(20),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(30),
-                                    ),
-                                    image: articleImg.isNotEmpty
-                                        ? DecorationImage(
-                                            image: NetworkImage(articleImg),
-                                            fit: BoxFit.cover,
-                                            opacity: 0.5,
-                                          )
-                                        : null,
-                                  ),
-                                  alignment: Alignment.center,
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        newsItem['title'] ?? '',
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                          fontSize: 22,
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Text(
-                                        newsItem['description'] ?? '',
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.grey,
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 30,
-                                ),
-                              ],
-                            ),
-                          );
-                        },
+                    : Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: NewsContainerr(newsList: newsList),
                       ),
               ],
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class SecondPage extends StatelessWidget {
-  const SecondPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Second Page...!'),
       ),
     );
   }
