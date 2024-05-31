@@ -2,7 +2,6 @@
 
 import 'package:boilerplate/Navigation%20Bar/navbar.dart';
 import 'package:boilerplate/screens/Home.dart';
-import 'package:boilerplate/screens/settings.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -25,7 +24,6 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => NavBar(),
-        '/second': (context) => SecondPage(),
       },
     );
   }
