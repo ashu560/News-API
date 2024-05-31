@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, library_private_types_in_public_api
 
 import 'package:boilerplate/screens/Home.dart';
-import 'package:boilerplate/screens/settings.dart';
+import 'package:boilerplate/screens/StarredArticle.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
@@ -14,7 +14,7 @@ class _NavBarState extends State<NavBar> {
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    Settings(),
+    StarredArticlesPage(),
   ];
 
   @override
@@ -53,8 +53,8 @@ class _NavBarState extends State<NavBar> {
                   text: 'Home',
                 ),
                 GButton(
-                  icon: Icons.settings,
-                  text: 'Settings',
+                  icon: Icons.label_important,
+                  text: 'Fev Articles',
                 ),
               ],
               selectedIndex: _selectedIndex,

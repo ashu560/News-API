@@ -28,21 +28,20 @@ class _HomePageState extends State<HomePage> {
       if (response.statusCode == 200) {
         final responseData = json.decode(response.body);
         if (responseData.containsKey('articles')) {
-          setState(() {
-            newsList =
-                List<Map<String, dynamic>>.from(responseData['articles']);
-          });
+          if (mounted) {
+            setState(() {
+              newsList =
+                  List<Map<String, dynamic>>.from(responseData['articles']);
+            });
+          }
         } else {
-          setState(() {
-            newsList = [];
-          });
+          if (mounted) {
+            setState(() {
+              newsList = [];
+            });
+          }
         }
       }
-    } catch (e) {
-      // Handle error
-      setState(() {
-        newsList = [];
-      });
     } finally {
       setState(() {
         isLoading = false;
