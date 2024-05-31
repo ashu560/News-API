@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ArticleDetailedWidget extends StatefulWidget {
   final Map<String, dynamic> newsItem;
@@ -41,72 +42,113 @@ class _ArticleDetailedWidgetState extends State<ArticleDetailedWidget> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (widget.newsItem['urlToImage'] != null)
-              Image.network(
-                widget.newsItem['urlToImage'],
-              ),
-            Padding(
-              padding: const EdgeInsets.only(right: 20.0, top: 5.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    'Published Date: ',
-                    style: TextStyle(color: Colors.blueGrey),
-                  ),
-                  Text(
-                    DateFormat('yyyy-MM-dd – kk:mm').format(
-                      DateTime.parse(widget.newsItem['publishedAt'] ?? ''),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (widget.newsItem['urlToImage'] != null)
+                Image.network(
+                  widget.newsItem['urlToImage'],
+                ),
+              Padding(
+                padding: const EdgeInsets.only(right: 20.0, top: 5.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      'Published Date: ',
+                      style: TextStyle(color: Colors.blueGrey),
                     ),
-                    style: TextStyle(color: Colors.blueGrey),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 10),
-            Text(
-              widget.newsItem['title'] ?? 'No Title',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 16),
-            Text(
-              widget.newsItem['description'] ?? 'No Description',
-              style: TextStyle(fontSize: 16),
-            ),
-            Divider(
-              color: Colors.blueGrey,
-              thickness: 2,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    'Author: ',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.blueGrey,
+                    Text(
+                      DateFormat('yyyy-MM-dd – kk:mm').format(
+                        DateTime.parse(widget.newsItem['publishedAt'] ?? ''),
+                      ),
+                      style: TextStyle(color: Colors.blueGrey),
                     ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      widget.newsItem['author'] ?? 'No content',
+                  ],
+                ),
+              ),
+              SizedBox(height: 10),
+              Text(
+                widget.newsItem['title'] ?? 'No Title',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 16),
+              Text(
+                widget.newsItem['description'] ?? 'No Description',
+                style: TextStyle(fontSize: 16),
+              ),
+              Divider(
+                color: Colors.blueGrey,
+                thickness: 2,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      'Author: ',
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.blueGrey,
                       ),
                     ),
-                  ),
-                ],
+                    Expanded(
+                      child: Text(
+                        widget.newsItem['author'] ?? 'No content',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.blueGrey,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+              Divider(
+                color: Colors.blueGrey,
+                thickness: 2,
+              ),
+              InkWell(
+                child: Text(
+                  widget.newsItem['url'] ?? 'No content',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.blue,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+                onTap: () async {
+                  final url = widget.newsItem['url'];
+                  if (url != null && url.isNotEmpty) {
+                    final uri = Uri.parse(url);
+                    if (await canLaunchUrl(uri)) {
+                      await launchUrl(uri);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'Could not launch $url',
+                          ),
+                        ),
+                      );
+                    }
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          'URL is null or empty',
+                        ),
+                      ),
+                    );
+                  }
+                },
+              )
+            ],
+          ),
         ),
       ),
     );
