@@ -1,7 +1,6 @@
-import 'dart:convert';
-import 'package:boilerplate/widgets/widgets.dart';
+import 'package:boilerplate/services/NewsController.dart';
+import 'package:boilerplate/widgets/NewsContainerr.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,33 +13,26 @@ class _HomePageState extends State<HomePage> {
   List<Map<String, dynamic>> newsList = [];
   bool isLoading = false;
 
+  final NewsController _newsController = NewsController();
+
   Future<void> apicall() async {
     setState(() {
       isLoading = true;
     });
 
     try {
-      final response = await http.get(
-        Uri.parse(
-            'https://newsapi.org/v2/everything?q=apple&from=2024-05-29&to=2024-05-29&sortBy=popularity&apiKey=3781440623274e3baa7267e719aa65ca'),
-      );
-
-      if (response.statusCode == 200) {
-        final responseData = json.decode(response.body);
-        if (responseData.containsKey('articles')) {
-          if (mounted) {
-            setState(() {
-              newsList =
-                  List<Map<String, dynamic>>.from(responseData['articles']);
-            });
-          }
-        } else {
-          if (mounted) {
-            setState(() {
-              newsList = [];
-            });
-          }
-        }
+      final fetchedNews = await _newsController.apicall();
+      if (mounted) {
+        setState(() {
+          newsList = fetchedNews;
+        });
+      }
+    } catch (e) {
+      // Handle error appropriately
+      if (mounted) {
+        setState(() {
+          newsList = [];
+        });
       }
     } finally {
       setState(() {
