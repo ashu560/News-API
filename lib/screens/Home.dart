@@ -35,9 +35,11 @@ class _HomePageState extends State<HomePage> {
         });
       }
     } finally {
-      setState(() {
-        isLoading = false;
-      });
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
     }
   }
 

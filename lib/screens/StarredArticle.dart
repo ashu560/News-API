@@ -29,13 +29,13 @@ class StarredArticlesPage extends StatelessWidget {
 
             return GestureDetector(
               onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) =>
-                //         ArticleDetailedWidget(newsItem: newsItem),
-                //   ),
-                // );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ArticleDetailedWidget(newsItem: newsItem),
+                  ),
+                );
               },
               child: Card(
                 elevation: 4.0,

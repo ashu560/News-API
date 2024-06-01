@@ -15,17 +15,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Trending Bulletin',
+      title: 'News API',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
       home: NavBar(),
-      // initialRoute: '/',
-      // routes: {
-      //   '/': (context) => NavBar(),
-      //   '/ArticleDetailedWidget': (context) => ArticleDetailedWidget(),
-      // },
     );
   }
 }
