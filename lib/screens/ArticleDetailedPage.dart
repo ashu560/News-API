@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings
 
+import 'package:boilerplate/services/StarrredArticle.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -152,21 +152,5 @@ class _ArticleDetailedWidgetState extends State<ArticleDetailedWidget> {
         ),
       ),
     );
-  }
-}
-
-class StarredArticles {
-  static List<Map<String, dynamic>> _starredArticles = [];
-
-  static void addArticle(Map<String, dynamic> article) {
-    _starredArticles.add(article);
-  }
-
-  static void removeArticle(Map<String, dynamic> article) {
-    _starredArticles.removeWhere((item) => item['title'] == article['title']);
-  }
-
-  static List<Map<String, dynamic>> getArticles() {
-    return _starredArticles;
   }
 }

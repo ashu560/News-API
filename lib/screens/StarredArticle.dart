@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:boilerplate/screens/ArticleDetailedPage.dart';
+import 'package:boilerplate/services/StarrredArticle.dart';
 import 'package:flutter/material.dart';
 
 class StarredArticlesPage extends StatelessWidget {
@@ -46,13 +47,13 @@ class StarredArticlesPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Container(
-                      height: 200, // or any other height
+                      height: 200,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.vertical(
                           top: Radius.circular(35.0),
                         ),
                         image: DecorationImage(
-                          image: NetworkImage(articleImg), // Placeholder image
+                          image: NetworkImage(articleImg),
                           fit: BoxFit.cover,
                         ),
                       ),

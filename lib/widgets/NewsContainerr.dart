@@ -11,8 +11,8 @@ class NewsContainerr extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height, // or any other height
-      width: MediaQuery.of(context).size.width, // or any other width
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
       child: ListView.builder(
         itemCount: newsList.length,
         itemBuilder: (context, index) {
@@ -38,13 +38,13 @@ class NewsContainerr extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Container(
-                    height: 200, // or any other height
+                    height: 200,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.vertical(
                         top: Radius.circular(35.0),
                       ),
                       image: DecorationImage(
-                        image: NetworkImage(articleImg), // Placeholder image
+                        image: NetworkImage(articleImg),
                         fit: BoxFit.cover,
                       ),
                     ),

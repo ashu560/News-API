@@ -13,7 +13,7 @@ class _HomePageState extends State<HomePage> {
   List<Map<String, dynamic>> newsList = [];
   bool isLoading = false;
 
-  final NewsController _newsController = NewsController();
+  final NewsController newsController = NewsController();
 
   Future<void> apicall() async {
     setState(() {
@@ -21,14 +21,13 @@ class _HomePageState extends State<HomePage> {
     });
 
     try {
-      final fetchedNews = await _newsController.apicall();
+      final fetchedNews = await newsController.NewsItems();
       if (mounted) {
         setState(() {
           newsList = fetchedNews;
         });
       }
     } catch (e) {
-      // Handle error appropriately
       if (mounted) {
         setState(() {
           newsList = [];

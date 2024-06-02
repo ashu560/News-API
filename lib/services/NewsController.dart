@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class NewsController {
-  Future<List<Map<String, dynamic>>> apicall() async {
+  Future<List<Map<String, dynamic>>> NewsItems() async {
     final response = await http.get(
       Uri.parse(
           'https://newsapi.org/v2/everything?q=apple&from=2024-05-29&to=2024-05-29&sortBy=popularity&apiKey=3781440623274e3baa7267e719aa65ca'),
