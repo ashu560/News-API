@@ -17,7 +17,6 @@ class ArticleDetailedWidget extends StatefulWidget {
 
 class _ArticleDetailedWidgetState extends State<ArticleDetailedWidget> {
   bool isStarred = false;
-  String? starArticle;
 
   void toggleStarred() {
     setState(() {
@@ -42,7 +41,20 @@ class _ArticleDetailedWidgetState extends State<ArticleDetailedWidget> {
             icon: Icon(isStarred ? Icons.star : Icons.star_border),
             // onPressed: toggleStarred,
             onPressed: () {
-              addStarredArticle(context, widget.newsItem['title'] ?? '');
+              addStarredArticle(
+                context,
+                widget.newsItem['title'] ?? '',
+                widget.newsItem['urlToImage'] ?? '',
+                widget.newsItem['publishedAt'] ?? '',
+                widget.newsItem['description'] ?? '',
+                widget.newsItem['author'] ?? '',
+                widget.newsItem['url'] ?? '',
+              );
+              setState(
+                () {
+                  isStarred = !isStarred;
+                },
+              );
             },
           ),
         ],
