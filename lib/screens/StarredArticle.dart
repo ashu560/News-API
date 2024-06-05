@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:boilerplate/screens/ArticleDetailedPage.dart';
 import 'package:boilerplate/services/firebase_functions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -27,17 +28,15 @@ class StarredArticlesPage extends StatelessWidget {
               itemCount: snapshot.data?.docs.length,
               itemBuilder: (context, index) {
                 final newsItem = snapshot.data?.docs[index];
-                // final articleImg = newsItem['urlToImage'] ?? '';
 
                 return GestureDetector(
                   onTap: () {
                     // Navigator.push(
                     //   context,
                     //   MaterialPageRoute(
-                    //     builder: (context) =>
-                    //         ArticleDetailedWidget(newsItem: newsItem),
+                    //     builder: (context) => ArticleDetailedWidget(),
                     //   ),
-                    // );
+                    // );s
                   },
                   child: Card(
                     elevation: 4.0,
@@ -54,7 +53,8 @@ class StarredArticlesPage extends StatelessWidget {
                               top: Radius.circular(35.0),
                             ),
                             image: DecorationImage(
-                              image: NetworkImage(newsItem?['urlToImage']),
+                              image:
+                                  NetworkImage(newsItem?['urlToImage'] ?? ''),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -62,7 +62,7 @@ class StarredArticlesPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            newsItem?['title'],
+                            newsItem?['title'] ?? '',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
