@@ -1,9 +1,15 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:boilerplate/Navigation%20Bar/navbar.dart';
+import 'package:boilerplate/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 

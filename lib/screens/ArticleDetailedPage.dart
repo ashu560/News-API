@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings
 
 import 'package:boilerplate/services/StarrredArticle.dart';
+import 'package:boilerplate/services/firebase_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -38,7 +39,23 @@ class _ArticleDetailedWidgetState extends State<ArticleDetailedWidget> {
         actions: [
           IconButton(
             icon: Icon(isStarred ? Icons.star : Icons.star_border),
-            onPressed: toggleStarred,
+            // onPressed: toggleStarred,
+            onPressed: () {
+              addStarredArticle(
+                context,
+                widget.newsItem['title'] ?? '',
+                widget.newsItem['urlToImage'] ?? '',
+                widget.newsItem['publishedAt'] ?? '',
+                widget.newsItem['description'] ?? '',
+                widget.newsItem['author'] ?? '',
+                widget.newsItem['url'] ?? '',
+              );
+              setState(
+                () {
+                  isStarred = !isStarred;
+                },
+              );
+            },
           ),
         ],
       ),
