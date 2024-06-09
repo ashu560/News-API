@@ -1,6 +1,4 @@
 // ignore_for_file: prefer_const_constructors
-
-import 'package:boilerplate/screens/ArticleDetailedPage.dart';
 import 'package:boilerplate/services/firebase_functions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
