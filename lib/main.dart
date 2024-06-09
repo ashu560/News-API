@@ -3,15 +3,18 @@
 import 'package:boilerplate/Navigation%20Bar/navbar.dart';
 import 'package:boilerplate/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
-  await dotenv.load(fileName: "assets/.env");
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: "assets/.env");
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+
   runApp(const MyApp());
 }
 

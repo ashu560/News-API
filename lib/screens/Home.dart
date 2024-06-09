@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:boilerplate/services/NewsController.dart';
 import 'package:boilerplate/widgets/NewsContainerr.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +14,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<Map<String, dynamic>> newsList = [];
   bool isLoading = false;
-
+  DateTime selectedDate = DateTime.now();
+  // DateTime selectedDate = DateTime(2024, 06, 08);
   final NewsController newsController = NewsController();
 
   Future<void> apicall() async {
@@ -21,7 +24,7 @@ class _HomePageState extends State<HomePage> {
     });
 
     try {
-      final fetchedNews = await newsController.NewsItems();
+      final fetchedNews = await newsController.NewsItems(selectedDate);
       if (mounted) {
         setState(() {
           newsList = fetchedNews;
@@ -73,13 +76,39 @@ class _HomePageState extends State<HomePage> {
                         Radius.circular(30),
                       ),
                     ),
-                    child: const Text(
-                      "Trending Bulletin",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w800,
-                        color: Colors.black,
-                        fontSize: 32,
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        const Text(
+                          "Trending Bulletin",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w800,
+                            color: Colors.black,
+                            fontSize: 32,
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () async {
+                            final DateTime? dateTime = await showDatePicker(
+                              context: context,
+                              initialDate: selectedDate,
+                              firstDate: DateTime(2024),
+                              lastDate: DateTime(2025),
+                            );
+
+                            if (dateTime != null) {
+                              setState(() {
+                                selectedDate = dateTime;
+                              });
+                              await apicall(); // Fetch news for the selected date
+                            }
+                          },
+                          child: Icon(
+                            Icons.date_range_outlined,
+                            color: Colors.amber,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),

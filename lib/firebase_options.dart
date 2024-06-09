@@ -59,4 +59,5 @@ class DefaultFirebaseOptions {
     projectId: 'newsapi-a92d8',
     storageBucket: 'newsapi-a92d8.appspot.com',
   );
+
 }

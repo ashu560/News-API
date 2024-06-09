@@ -37,18 +37,38 @@ class NewsContainerr extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Container(
-                    height: 200,
-                    decoration: BoxDecoration(
+                  if (articleImg != null && articleImg.isNotEmpty)
+                    ClipRRect(
                       borderRadius: BorderRadius.vertical(
                         top: Radius.circular(35.0),
                       ),
-                      image: DecorationImage(
-                        image: NetworkImage(articleImg),
+                      child: Image.network(
+                        articleImg,
+                        height: 200,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Image.asset(
+                            'assets/images/photo.png',
+                            height: 200,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                          );
+                        },
+                      ),
+                    )
+                  else
+                    ClipRRect(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(35.0),
+                      ),
+                      child: Image.asset(
+                        'assets/images/photo.png',
+                        height: 200,
+                        width: double.infinity,
                         fit: BoxFit.cover,
                       ),
                     ),
-                  ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
