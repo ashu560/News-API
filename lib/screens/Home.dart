@@ -3,6 +3,7 @@
 import 'package:boilerplate/services/NewsController.dart';
 import 'package:boilerplate/widgets/NewsContainerr.dart';
 import 'package:flutter/material.dart';
+import 'package:number_paginator/number_paginator.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -50,6 +51,9 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     apicall();
   }
+
+  int numberOfPages = 10;
+  int currentPage = 10;
 
   @override
   Widget build(BuildContext context) {
@@ -112,14 +116,44 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                isLoading
-                    ? Center(
-                        child: const CircularProgressIndicator(),
-                      )
-                    : Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: NewsContainerr(newsList: newsList),
+                if (isLoading)
+                  Center(
+                    child: CircularProgressIndicator(),
+                  )
+                else if (newsList.isEmpty)
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Text(
+                        "No news articles found for the selected date.",
+                        style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,),
                       ),
+                    ),
+                  )
+                else
+                  Column(
+                    children: [
+                      NumberPaginator(
+                        numberPages: (newsList.length / 10).ceil(),
+                        initialPage:
+                            1, // Ensure this value is within the valid range
+                        onPageChange: (index) {
+                          setState(() {
+                            currentPage = index;
+                          });
+                        },
+                      ),
+
+                      // Expanded(child: page[currentPages]),
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: NewsContainerr(
+                          newsList: newsList,
+                          currentPage: currentPage,
+                        ),
+                      ),
+                    ],
+                  ),
               ],
             ),
           ),
