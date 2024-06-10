@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_const_constructors
-import 'package:boilerplate/services/firebase_functions.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:boilerplate/services/firebase_functions.dart';
 
-class StarredArticlesPage extends StatelessWidget {
-  const StarredArticlesPage({super.key});
+class starredArticlesPage extends StatelessWidget {
+  const starredArticlesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,21 +20,41 @@ class StarredArticlesPage extends StatelessWidget {
           left: 10,
         ),
         child: StreamBuilder(
-          stream: NewsAticle,
+          stream: newsArticle,
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) {
+              return Center(
+                child: Text('Something went wrong'),
+              );
+            }
+
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+
+            if (snapshot.data == null || snapshot.data!.docs.isEmpty) {
+              return Center(
+                child: Text('No starred articles found'),
+              );
+            }
+
             return ListView.builder(
               itemCount: snapshot.data?.docs.length,
               itemBuilder: (context, index) {
-                final newsItem = snapshot.data?.docs[index];
+                final newsItem = snapshot.data?.docs[index].data() as Map<String, dynamic>;
 
                 return GestureDetector(
                   onTap: () {
                     // Navigator.push(
                     //   context,
                     //   MaterialPageRoute(
-                    //     builder: (context) => ArticleDetailedWidget(),
+                    //     builder: (context) => ArticleDetailedWidget(
+                    //       newsItem: newsItem,
+                    //     ),
                     //   ),
-                    // );s
+                    // );
                   },
                   child: Card(
                     elevation: 4.0,
@@ -51,8 +71,7 @@ class StarredArticlesPage extends StatelessWidget {
                               top: Radius.circular(35.0),
                             ),
                             image: DecorationImage(
-                              image:
-                                  NetworkImage(newsItem?['urlToImage'] ?? ''),
+                              image: NetworkImage(newsItem['urlToImage'] ?? ''),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -60,7 +79,7 @@ class StarredArticlesPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            newsItem?['title'] ?? '',
+                            newsItem['title'] ?? '',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
