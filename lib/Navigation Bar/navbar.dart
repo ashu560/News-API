@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 class NavBar extends StatefulWidget {
+  const NavBar({super.key});
+
   @override
   _NavBarState createState() => _NavBarState();
 }
@@ -14,7 +16,7 @@ class _NavBarState extends State<NavBar> {
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    StarredArticlesPage(),
+    starredArticlesPage(),
   ];
 
   @override
