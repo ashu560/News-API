@@ -136,7 +136,7 @@ class _HomePageState extends State<HomePage> {
                       NumberPaginator(
                         numberPages: (newsList.length / 10).ceil(),
                         initialPage:
-                            1, // Ensure this value is within the valid range
+                            0, // Ensure this value is within the valid range
                         onPageChange: (index) {
                           setState(() {
                             currentPage = index;
